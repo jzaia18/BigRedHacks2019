@@ -42,30 +42,28 @@ User Mod
                     </div>
                 </div>
 
-                <div class="wrap-input3 validate-input" data-validate="Name is required">
+                <div class="wrap-input3 validate-input" data-validate="First name is required">
                     <input class="input3" type="text" name="first_name" placeholder="First Name">
                     <span class="focus-input3"></span>
                 </div>
 
-                <div class="wrap-input3 validate-input" data-validate="Name is required">
+                <div class="wrap-input3 validate-input" data-validate="Last name is required.">
                     <input class="input3" type="text" name="last_name" placeholder="Last Name">
                     <span class="focus-input3"></span>
                 </div>
 
-                <div class="wrap-input3 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input3" type="text" name="rfid" placeholder="Your ID">
+                <div class="wrap-input3 validate-input" data-validate = "Valid RFID is required.">
+                    <input class="input3" type="text" name="rfid" placeholder="User RFID">
                     <span class="focus-input3"></span>
                 </div>
 
                 <div class="wrap-input3 validate-input" data-validate = "Locks are Required">
-                    <label class="input3" placeholder="Which Locks?"></label>
+                    <label class="input3" placeholder="What Room Access?"></label>
                     <select class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
                         {% for lock in locks %}
                             <option value={{ lock._id }}>{{ lock.description }}</option>
                         {% endfor %}
                       </select>
-                      <label class="mdb-main-label">Label example</label>
-                      <button class="
                 </div>
 
                 <div class="container-contact3-form-btn">
