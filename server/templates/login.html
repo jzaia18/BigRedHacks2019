@@ -15,16 +15,17 @@ Admin Login
 
 
 {% block body %}
-<form method="post" action="base.html">
+<form method="post" action="/login_attempt">
     <div class="box">
     <h1>Admin Login</h1>
     
-    <input type="email" name="email" value="email" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
+    <form action="/login_attempt" method="post">
+        <input type="email" name="email" value="email" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
       
-    <input type="password" name="email" value="email" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
+        <input type="password" name="password" value="password" onFocus="field_focus(this, '');" onblur="field_blur(this, 'password');" class="password" />
       
-    <a href="#"><div class="btn">Sign In</div></a> <!-- End Btn -->
-      
+        <input type="submit" class="btn">Sign In</input> <!-- End Btn -->
+    </form>
     </div> <!-- End Box -->
       
     </form>
