@@ -25,8 +25,22 @@ def temperature():
 def airquality():
     return render_template("airquality.html")
 
+@app.route("/lock/create")
+def lock_create():
+    description = request.args.get('description')
+    new_lock = database.Lock(description=description)
+    new_lock.save()
+    return Response(status=200)
+
 @app.route("/lock/query/<id_num>")
-def query_lock(id_num):
+def query_lock(id_num: int):
+    """
+    Handles getting information for a given lock. The lock data is returned as a string
+    for testing including the ID of the lock and the users that are able to unlock the
+    given lock
+
+    id_num (int): The ID of the lock to get information for
+    """
     # Get the lock from the database
     lock = database.Lock.objects(lock_id=id_num)[0]
 
@@ -43,9 +57,12 @@ def unlock(id_num):
 
 @app.route("/add/<id_num>")
 def add_user_lock(id_num):
+    """
+    Add a given user to the list of accepted users for a lock. Passed in as a get
+    parameter is the ID of the user to ad
+    """
     # Get the rfid and the user specified
     rfid = request.args.get('rfid')
-    print(rfid)
     user = database.User.objects(rfid=rfid)[0]
     lock = database.Lock.objects(lock_id=id_num)[0]
     print(type(lock))
@@ -70,6 +87,13 @@ def remove_user_lock(id_num):
 
 @app.route("/user/create")
 def create_user():
+    """
+    Handles creating a user with an rfid and a name associated with it. The rfid is the
+    id of the chip of the user and the name of the user is included.
+
+    rfid (str): A string representation of the rfid
+    name (str): The name of the user
+    """
     # Get the data for the user
     rfid = request.args.get('rfid')
     first_name = request.args.get('first_name')
