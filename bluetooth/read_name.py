@@ -38,7 +38,7 @@ class Reader(object):
             data = ",".join([str(ord(datum)) for datum in data[0]])
 
 
-            path = "info_pipe"
+            path = "../server/info_pipe"
             try:
                 os.mkfifo(path)
             except:
