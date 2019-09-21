@@ -28,12 +28,12 @@ class User(mdb.Document):
     is associated with a user
 
     user_id (SequenceField): The unique of the user set automatically
-    rfid (IntField): The id of the rfid chip associated with the user
+    rfid (StringField): The id of the rfid chip associated with the user
     first_name (StringField): The first name of the user
     last_name (StringField): The last name of the user
     """
     user_id = mdb.SequenceField(required=True, primary_key=True)
-    rfid = mdb.IntField()
+    rfid = mdb.StringField()
     first_name = mdb.StringField(required=True)
     last_name = mdb.StringField(required=True)
 
