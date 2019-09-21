@@ -26,12 +26,17 @@ def unlock(id_num):
     print(id_num)
     return render_template("base.html")
 
-@app.route("/lock/<id_num>")
-def lock(id_num):
+@app.route("/check/<id_num>")
+def check(id_num):
     print(id_num)
     return render_template("base.html")
 
-@app.route("/check/<id_num>")
+@app.route("/add/<id_num>")
+def check(id_num):
+    print(id_num)
+    return render_template("base.html")
+
+@app.route("/remove/<id_num>")
 def check(id_num):
     print(id_num)
     return render_template("base.html")
