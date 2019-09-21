@@ -4,6 +4,7 @@ import os
 from configparser import ConfigParser
 from pathlib import Path
 import database
+from bson import ObjectId
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
@@ -33,7 +34,7 @@ def lock_create():
     return Response(status=200)
 
 @app.route("/lock/query/<id_num>")
-def query_lock(id_num: int):
+def query_lock(id_num):
     """
     Handles getting information for a given lock. The lock data is returned as a string
     for testing including the ID of the lock and the users that are able to unlock the
@@ -42,10 +43,10 @@ def query_lock(id_num: int):
     id_num (int): The ID of the lock to get information for
     """
     # Get the lock from the database
-    lock = database.Lock.objects(lock_id=id_num)[0]
+    lock = database.Lock.objects.get({'_id': ObjectId(id_num)})
 
     # Test output
-    output = 'Lock: ' + str(lock.lock_id) + '\n'
+    output = 'Lock: ' + str(lock._id) + '\n'
     for user in lock.accepted_users:
         output += 'User: ' + user.first_name + '\n'
     return output
@@ -63,9 +64,8 @@ def add_user_lock(id_num):
     """
     # Get the rfid and the user specified
     rfid = request.args.get('rfid')
-    user = database.User.objects(rfid=rfid)[0]
-    lock = database.Lock.objects(lock_id=id_num)[0]
-    print(type(lock))
+    user = database.User.objects.get({'rfid': rfid})
+    lock = database.Lock.objects.get({'_id': ObjectId(id_num)})
 
     # Add the user to the accepted user list of the lock and update the database
     lock.accepted_users.append(user)
@@ -106,6 +106,7 @@ def create_user():
 
 @app.route("/usermod")
 def usermod():
+    list = database.List.objects().all()
     return render_template("usermod.html")
 
 if __name__ == "__main__":
