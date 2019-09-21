@@ -14,17 +14,21 @@ app.secret_key = os.urandom(16)
 def root():
     return render_template("base.html")
 
+
 @app.route("/about")
 def about():
     return render_template("about.html")
+
 
 @app.route("/temperature")
 def temperature():
     return render_template("temperature.html")
 
+
 @app.route("/airquality")
 def airquality():
     return render_template("airquality.html")
+
 
 @app.route("/lock/create")
 def lock_create():
@@ -32,6 +36,7 @@ def lock_create():
     new_lock = database.Lock(description=description)
     new_lock.save()
     return Response(status=200)
+
 
 @app.route("/lock/query/<id_num>")
 def query_lock(id_num):
@@ -51,10 +56,12 @@ def query_lock(id_num):
         output += 'User: ' + user.first_name + '\n'
     return output
 
+
 @app.route("/unlock/<id_num>")
 def unlock(id_num):
     print(id_num)
     return render_template("base.html")
+
 
 @app.route("/add/<id_num>")
 def add_user_lock(id_num):
@@ -72,6 +79,7 @@ def add_user_lock(id_num):
     lock.save()
     return Response(status=200)
 
+
 @app.route("/remove/<id_num>")
 def remove_user_lock(id_num):
     # Get the rfid and the user specified
@@ -84,6 +92,7 @@ def remove_user_lock(id_num):
     lock.save()
 
     return Response(status=200)
+
 
 @app.route("/user/create")
 def create_user():
@@ -103,6 +112,7 @@ def create_user():
     user = database.User(rfid=rfid, first_name=first_name, last_name=last_name)
     user.save()
     return Response(status=200)
+
 
 @app.route("/usermod")
 def usermod():
