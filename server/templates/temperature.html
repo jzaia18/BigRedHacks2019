@@ -6,4 +6,21 @@ Temperature
 
 {% block body %}
 Temperature
+<br />
+The temperature is: <span id="temp"> </span>
+
+{% endblock %}
+
+{% block js %}
+<script>
+  setInterval(function(){ $.ajax({
+    type: "GET",
+    dataType: "json",
+    data: 'N/A',
+    url: "http://localhost:5000/get_temperature",
+    success: function(data){
+      document.getElementById("temp").innerText = data.temp;
+    }
+  })}, 500);
+</script>
 {% endblock %}

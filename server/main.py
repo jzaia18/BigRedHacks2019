@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response, redirect
 from functools import wraps
-import os
+import os, json
 from configparser import ConfigParser
 from pathlib import Path
 import database
@@ -9,6 +9,17 @@ from bson import ObjectId
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
+
+#authentication wrapper
+def require_login(f):
+    @wraps(f)
+    def inner(*args, **kwargs):
+        if 'uname' not in session:
+            flash("Please log in to use this feature")
+            return redirect(url_for("login"))
+        else:
+            return f(*args, **kwargs)
+    return inner
 
 @app.route("/")
 def root():
@@ -50,6 +61,18 @@ def temperature():
     """
     return render_template("temperature.html")
 
+@app.route("/get_temperature")
+def get_temp():
+    """
+    Handles displaying the temperature data for a specific user. Takes in id of the user
+    and returns the temperature data displayed in HTML
+    """
+    f = open("info_pipe", 'r')
+    temperature = f.read().split(',')[1][:-1]
+    f.close()
+    s = {'temp': temperature}
+    res = json.dumps(s)
+    return res
 
 @app.route("/add_temperature")
 def add_temperature():
