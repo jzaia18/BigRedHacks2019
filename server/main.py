@@ -1,13 +1,14 @@
 from flask import Flask, render_template
 from functools import wraps
+import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
 
-@app.route("/")
+@app.route("/hello")
 def root():
-    pass
+    return 'Hello World'
 
 if __name__ == "__main__":
     app.debug = True
