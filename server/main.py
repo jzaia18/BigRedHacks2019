@@ -10,6 +10,17 @@ app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
 
+#authentication wrapper
+def require_login(f):
+    @wraps(f)
+    def inner(*args, **kwargs):
+        if 'uname' not in session:
+            flash("Please log in to use this feature")
+            return redirect(url_for("login"))
+        else:
+            return f(*args, **kwargs)
+    return inner
+
 @app.route("/")
 def root():
     return render_template("base.html")

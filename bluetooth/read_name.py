@@ -6,7 +6,7 @@
 
 from __future__ import print_function
 
-import sys
+import os, sys
 from bluetooth.ble import GATTRequester
 
 
@@ -24,12 +24,29 @@ class Reader(object):
         print("OK!")
 
     def request_data(self):
-        while (True):
+        #for each in self.requester.discover_characteristics():
+        #    print(each)
+        #    print(self.requester.read_by_handle(each['handle']))
+        print("Begin reading data: ")
+        while(True):
             data = self.requester.read_by_uuid(
-            "0000181c-0000-1000-8000-00805f9b34fb")
+            #"0x2902")
+                "0000aaaa-0000-1000-8000-00805f9b34fb")
             #"0000181c-0000-1000-8000-00805f9b34fbC")
             #"00002a00-0000-1000-8000-00805f9b34fb")
-            print(ord(data[0]))
+            #print(data)
+            data = ",".join([str(ord(datum)) for datum in data[0]])
+
+
+            path = "info_pipe"
+            try:
+                os.mkfifo(path)
+            except:
+                #print("pipe already exists")
+                pass
+            fifo = open(path, 'w')
+            fifo.write(str(data) + "\n")
+            fifo.close()
         '''
         try:
             print("Device name: " + data.decode("utf-8"))
