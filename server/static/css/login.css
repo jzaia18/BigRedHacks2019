@@ -1,15 +1,28 @@
 h1{
     font-size:1.5em;
-    color:#525252;
+    color:#ffffff;
   }
+
+p{
+    font-size:12px;
+    text-decoration: none;
+    color:#000000;
+    position: center;
+    text-align: center;
+}
   
   .box{
-    background:white;
+    background: #ff9100;
+    background: -webkit-linear-gradient(45deg, #ff9100, #e60505);
+    background: -o-linear-gradient(45deg, #ff9100, #e60505);
+    background: -moz-linear-gradient(45deg, #ff9100, #e60505);
+    background: linear-gradient(45deg, #ff9100, #e60505);
     width:300px;
     border-radius:6px;
     margin: 0 auto 0 auto;
-    padding:0px 0px 70px 0px;
-    border: #2980b9 4px solid; 
+    padding:10px 0px 70px 0px;
+    border: #ffffff 2px solid; 
+    position: center;
   }
   
   .email{
@@ -22,6 +35,9 @@ h1{
     margin-top:10px;
     font-size:1em;
     border-radius:4px;
+    text-align: center;
+    position: center;
+    margin-left: 23px;
   }
   
   .password{
@@ -31,25 +47,27 @@ h1{
     padding: 8px;
     width:250px;
     font-size:1em;
+    text-align: center;
+    position: center;
   }
   
   .btn{
-    background:#2ecc71;
+    background:#db2323;
     width:125px;
     padding-top:5px;
     padding-bottom:5px;
     color:white;
     border-radius:4px;
-    border: #27ae60 1px solid;
+    border: #d12323 1px solid;
     
     margin-top:20px;
     margin-bottom:20px;
     float:left;
-    margin-left:16px;
+    margin-left:85px;
     font-weight:800;
     font-size:0.8em;
   }
   
   .btn:hover{
-    background:#2CC06B; 
+    background:#db2323; 
   }
