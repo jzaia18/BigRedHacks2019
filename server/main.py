@@ -15,11 +15,11 @@ def root():
 
 @app.route("/temperature")
 def temperature():
-    return render_template("base.html")
+    return render_template("temperature.html")
 
 @app.route("/airquality")
 def airquality():
-    return render_template("base.html")
+    return render_template("airquality.html")
 
 @app.route("/unlock/<id_num>")
 def unlock(id_num):
