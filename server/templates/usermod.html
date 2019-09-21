@@ -58,8 +58,14 @@ User Mod
                 </div>
 
                 <div class="wrap-input3 validate-input" data-validate = "Locks are Required">
-                    <label class="input3" name="locks" placeholder="Which Locks?"></label>
-                    <span class="focus-input3"></span>
+                    <label class="input3" placeholder="Which Locks?"></label>
+                    <select class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
+                        {% for lock in locks %}
+                            <option value={{ lock._id }}>{{ lock.description }}</option>
+                        {% endfor %}
+                      </select>
+                      <label class="mdb-main-label">Label example</label>
+                      <button class="
                 </div>
 
                 <div class="container-contact3-form-btn">

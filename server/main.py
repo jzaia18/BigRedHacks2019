@@ -106,8 +106,8 @@ def create_user():
 
 @app.route("/usermod")
 def usermod():
-    list = database.List.objects().all()
-    return render_template("usermod.html")
+    locks = database.Lock.objects.all()
+    return render_template("usermod.html", locks=locks)
 
 if __name__ == "__main__":
     # Parse in connection details for the database
