@@ -27,7 +27,7 @@ def query_lock(id_num):
     lock = database.Lock.objects(lock_id=id_num)[0]
 
     # Test output
-    output = 'Lock: ' + lock.lock_id + '\n'
+    output = 'Lock: ' + str(lock.lock_id) + '\n'
     for user in lock.accepted_users:
         output += 'User: ' + user.first_name + '\n'
     return output
@@ -42,8 +42,8 @@ def add_user_lock(id_num):
     # Get the rfid and the user specified
     rfid = request.args.get('rfid')
     print(rfid)
-    user = database.User.objects.get(rfid=rfid)
-    lock = database.Lock.objects.get(lock_id=id_num).first()
+    user = database.User.objects(rfid=rfid)[0]
+    lock = database.Lock.objects(lock_id=id_num)[0]
     print(type(lock))
 
     # Add the user to the accepted user list of the lock and update the database
@@ -83,8 +83,6 @@ if __name__ == "__main__":
     config = ConfigParser()
     config.read(mongo_config_file)
     database.init(config)
-
-    lock = database.Lock(description='Room 134')
 
     app.debug = True
     app.run(host="0.0.0.0")
