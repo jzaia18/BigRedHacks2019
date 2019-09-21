@@ -50,7 +50,8 @@ def get_temp():
     and returns the temperature data displayed in HTML
     """
     f = open("info_pipe", 'r')
-    temperature = f.read().split(',')[1][:-1]
+    temperature = f.read()
+    temperature = temperature.split(',')[1][:-1]
     f.close()
     s = {'temp': temperature}
     res = json.dumps(s)

@@ -36,7 +36,7 @@ class Reader(object):
             #"00002a00-0000-1000-8000-00805f9b34fb")
             #print(data)
             data = ",".join([str(ord(datum)) for datum in data[0]])
-
+            print(data)
 
             path = "../server/info_pipe"
             try:
@@ -45,7 +45,7 @@ class Reader(object):
                 #print("pipe already exists")
                 pass
             fifo = open(path, 'w')
-            fifo.write(str(data) + "\n")
+            fifo.write(str(data))
             fifo.close()
         '''
         try:
