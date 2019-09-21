@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 import pymodm
 
+
 def init(config: ConfigParser):
     """
     Initializes the connection to the mongodb database using the credentials and other
@@ -43,3 +44,16 @@ class Lock(pymodm.MongoModel):
     """
     description = pymodm.CharField()
     accepted_users = pymodm.ListField(pymodm.ReferenceField(User))
+
+
+class Temperature(pymodm.MongoModel):
+    """
+    A single temperature database for a specific user at a specific time
+
+    temperature (FloatField): The temperature read at the time period
+    user (ReferenceField(User)): The user that the temperature was collected for
+    timestamp (TimestampField): The time when the temperature reading was recorded
+    """
+    temperature = pymodm.FloatField()
+    user = pymodm.ReferenceField(User)
+    timestamp = pymodm.TimestampField()
