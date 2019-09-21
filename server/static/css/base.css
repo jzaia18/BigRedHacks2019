@@ -157,7 +157,7 @@ iframe {
 .contact3-form-title {
   display: block;
   font-family: Poppins-Bold;
-  font-size: 39px;
+  font-size: 36px;
   color: #fff;
   line-height: 1.2;
   text-align: center;
@@ -186,6 +186,7 @@ iframe {
   color: #fff;
   line-height: 1.2;
   padding: 0 5px;
+  text-align: center
 }
 
 .focus-input3 {
@@ -262,6 +263,7 @@ textarea.input3 {
   height: 50px;
   border-radius: 2px;
   position: relative;
+  margin: 0 auto;
   z-index: 1;
   background: #80c64a;
   background: -webkit-linear-gradient(-135deg, #e60505, #ff9100);
@@ -317,6 +319,8 @@ textarea.input3 {
 
 .validate-input {
   position: relative;
+  text-align: center;
+
 }
 
 .alert-validate::before {
@@ -394,13 +398,17 @@ textarea.input3 {
 
 .input-radio3 {
   display: none;
+  text-align: center;
+  position:center;
 }
 
 .label-radio3 {
   display: block;
   position: relative;
   padding-left: 28px;
+  padding-right: 28px;
   cursor: pointer;
+  text-align: center;
   font-family: Poppins-Medium;
   font-size: 18px;
   color: #fff;
