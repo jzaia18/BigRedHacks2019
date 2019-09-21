@@ -52,7 +52,9 @@ a:hover {
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
+  margin: 0px;
+  text-align: center;
+  padding-top: 2px;
 }
 
 p {
@@ -596,3 +598,5 @@ textarea.input3 {
     min-height: 88vh;
     border-radius: 5vh;
 }
+
+/*--------------------------------------------------------------------*/

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Login
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href= {{ url_for('static', filename = "static/css/login.css" ) }}>
+{% endblock %}
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/login.js' ) }}"></script>
+
+
+
+{% block body %}
+<form method="post" action="base.html">
+    <div class="box">
+    <h1>Admin Login</h1>
+    
+    <input type="email" name="email" value="email" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
+      
+    <input type="password" name="email" value="email" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
+      
+    <a href="#"><div class="btn">Sign In</div></a> <!-- End Btn -->
+      
+    </div> <!-- End Box -->
+      
+    </form>
+    
+    <p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p>
+
+{% endblock %}
