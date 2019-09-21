@@ -1,6 +1,5 @@
 from configparser import ConfigParser
-import mongoengine as mdb
-
+import pymodm
 
 def init(config: ConfigParser):
     """
@@ -12,17 +11,12 @@ def init(config: ConfigParser):
     username = config['credentials']['username']
     password = config['credentials']['password']
     host = config['connection']['url']
-    project_name = config['connection']['project_name']
 
-    mdb.connect(
-        project_name,
-        host=host,
-        username=username,
-        password=password
-    )
+    mongodb_url = 'mongodb://{}:{}@{}'.format(username, password, host)
+    pymodm.connect(mongodb_url)
 
 
-class User(mdb.Document):
+class User(pymodm.MongoModel):
     """
     Represents a single user that is kept track of by the server. Each other datapoint
     is associated with a user
@@ -32,13 +26,12 @@ class User(mdb.Document):
     first_name (StringField): The first name of the user
     last_name (StringField): The last name of the user
     """
-    user_id = mdb.SequenceField(required=True, primary_key=True)
-    rfid = mdb.StringField()
-    first_name = mdb.StringField(required=True)
-    last_name = mdb.StringField(required=True)
+    rfid = pymodm.CharField()
+    first_name = pymodm.CharField()
+    last_name = pymodm.CharField()
 
 
-class Lock(mdb.Document):
+class Lock(pymodm.MongoModel):
     """
     Represents a single smart lock that user can potentially access via their RFID chip.
     Each room keeps track of a list of users that can access the lock as well as other
@@ -48,6 +41,5 @@ class Lock(mdb.Document):
     description (StringField): A human readable description of the lock
     accepted_users (ListField(ReferenceField('User'))): The users that can unlock the lock
     """
-    lock_id = mdb.SequenceField(required=True, primary_key=True)
-    description = mdb.StringField()
-    accepted_users = mdb.ListField(mdb.ReferenceField('User'))
+    description = pymodm.CharField()
+    accepted_users = pymodm.ListField(pymodm.ReferenceField(User))

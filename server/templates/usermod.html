@@ -21,7 +21,7 @@ User Mod
 <div class">
     <div class="container-contact3">
         <div class="wrap-contact3">
-            <form class="contact3-form validate-form">
+            <form class="contact3-form validate-form" action="/user/create">
                 <span class="contact3-form-title">
                     User Modification
                 </span>
@@ -43,17 +43,22 @@ User Mod
                 </div>
 
                 <div class="wrap-input3 validate-input" data-validate="Name is required">
-                    <input class="input3" type="text" name="name" placeholder="Your Name">
+                    <input class="input3" type="text" name="first_name" placeholder="First Name">
+                    <span class="focus-input3"></span>
+                </div>
+
+                <div class="wrap-input3 validate-input" data-validate="Name is required">
+                    <input class="input3" type="text" name="last_name" placeholder="Last Name">
                     <span class="focus-input3"></span>
                 </div>
 
                 <div class="wrap-input3 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input3" type="text" name="email" placeholder="Your ID">
+                    <input class="input3" type="text" name="rfid" placeholder="Your ID">
                     <span class="focus-input3"></span>
                 </div>
 
                 <div class="wrap-input3 validate-input" data-validate = "Locks are Required">
-                    <textarea class="input3" name="message" placeholder="Which Locks?"></textarea>
+                    <textarea class="input3" name="locks" placeholder="Which Locks?"></textarea>
                     <span class="focus-input3"></span>
                 </div>
 
