@@ -56,12 +56,13 @@ def remove_user_lock(id_num):
     # Get the rfid and the user specified
     rfid = request.args.get('rfid')
     user = database.User.objects(rfid=rfid)[0]
-    lock = database.Lock.objects(lock_id=id_num)
+    lock = database.Lock.objects(lock_id=id_num)[0]
 
     # Remove the user from the accepted user list for the lock
     lock.accepted_users.remove(user)
     lock.save()
-    return render_template("base.html")
+
+    return Response(status=200)
 
 @app.route("/user/create")
 def create_user():
