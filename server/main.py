@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, redirect
 from functools import wraps
 import os
 from configparser import ConfigParser
@@ -19,9 +19,27 @@ def root():
 def about():
     return render_template("about.html")
 
+
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
+@app.route("/login_attempt", methods=['POST'])
+def login_attempt():
+    user_name = request.form['email'].lower()
+    print(user_name)
+    password = request.form['password']
+    admins = database.AdminAccount.objects.all()
+    admins = list(filter(lambda admin: admin.user_name.lower() == user_name, admins))
+    # Invalid username
+    if len(admins) == 0:
+        return redirect('/login')
+    admin = admins[0]
+    if database.verify_password(admin, password) is not True:
+        print('there')
+        return redirect('/login')
+    return redirect('/usermod')
 
 
 @app.route("/temperature")
