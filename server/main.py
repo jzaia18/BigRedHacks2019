@@ -13,6 +13,10 @@ app.secret_key = os.urandom(16)
 def root():
     return render_template("base.html")
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 @app.route("/temperature")
 def temperature():
     return render_template("temperature.html")
@@ -41,6 +45,9 @@ def remove(id_num):
     print(id_num)
     return render_template("base.html")
 
+@app.route("/usermod")
+def usermod():
+    return render_template("base.html")
 
 if __name__ == "__main__":
     # Parse in connection details for the database
