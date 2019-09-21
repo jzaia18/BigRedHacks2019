@@ -26,16 +26,40 @@ def login():
 
 @app.route("/temperature")
 def temperature():
+    """
+    Handles displaying the temperature data for a specific user. Takes in id of the user
+    and returns the temperature data displayed in HTML
+    """
     return render_template("temperature.html")
+
+
+@app.route("/add_temperature")
+def add_temperature():
+    """
+    Add temperature data to the database associated with a given user
+    """
+    temperature_value = request.form['value']
+    timestamp = request.form['timestamp']
+    user = database.User.objects.get({'rfid', request.form['rfid']})
+    temperature = database.Temperature(temp_value=temperature, timestamp=timestamp, user=user)
 
 
 @app.route("/airquality")
 def airquality():
+    """
+    Handles displaying the air quality for a specific user. Takes in id of the user and
+    returns the airquality data displayed in HTML
+    """
     return render_template("airquality.html")
 
 
 @app.route("/lock/create")
 def lock_create():
+    """
+    Creates a new smart lock that has a description associated with it. The description
+    is a human-readable short detail of what the lock is for. By default the lock is
+    saved with no access granted to any user.
+    """
     description = request.args.get('description')
     new_lock = database.Lock(description=description)
     new_lock.save()
@@ -63,8 +87,19 @@ def query_lock(id_num):
 
 @app.route("/unlock/<id_num>")
 def unlock(id_num):
-    print(id_num)
-    return render_template("base.html")
+    """
+    Handles unlocking a specific lock. A user that is a member of the accepted list of
+    users for the lock can successfully unlock the door
+    """
+    user_rfid = request.args.get('rfid')
+
+    lock = database.Lock.objects.get({'_id': ObjectId(id_num)})
+    user = database.User.objects.get({'rfid': user_rfid})
+    if user in lock.accepted_users:
+        print('PLACE HOLDER FOR UNLOCKING LOCK')
+    else:
+        print('PLACE HOLDER FOR FAILURE TO UNLOCK LOCK')
+    return Response(status=200)
 
 
 @app.route("/add/<id_num>")
@@ -86,6 +121,9 @@ def add_user_lock(id_num):
 
 @app.route("/remove/<id_num>")
 def remove_user_lock(id_num):
+    """
+    Removes a users for the accepted list of users that can unlock a specific lock.
+    """
     # Get the rfid and the user specified
     rfid = request.args.get('rfid')
     user = database.User.objects(rfid=rfid)[0]

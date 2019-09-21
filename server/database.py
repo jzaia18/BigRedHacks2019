@@ -54,6 +54,6 @@ class Temperature(pymodm.MongoModel):
     user (ReferenceField(User)): The user that the temperature was collected for
     timestamp (TimestampField): The time when the temperature reading was recorded
     """
-    temperature = pymodm.FloatField()
+    temp_value = pymodm.FloatField()
     user = pymodm.ReferenceField(User)
     timestamp = pymodm.TimestampField()
