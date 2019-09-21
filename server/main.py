@@ -82,7 +82,7 @@ def create_user():
 
 @app.route("/usermod")
 def usermod():
-    return render_template("base.html")
+    return render_template("usermod.html")
 
 if __name__ == "__main__":
     # Parse in connection details for the database

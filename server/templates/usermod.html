@@ -2,9 +2,9 @@
 
 {% block css %}
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href= {{ url_for('static', filename = "static/vendor/animate/animate.css" ) }}>
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet" type="text/css" href= {{ url_for('static', filename = "static/vendor/css-hamburgers/hamburgers.min.css" ) }}>
 <!--===============================================================================================-->
 
 {% endblock %}
@@ -14,7 +14,7 @@ User Mod
 {% endblock %}
 
 {% block body %}
-<div class="bg-contact3" style="background-image: url('images/bg-01.jpg');">
+<div class">
     <div class="container-contact3">
         <div class="wrap-contact3">
             <form class="contact3-form validate-form">
