@@ -32,12 +32,12 @@ def check(id_num):
     return render_template("base.html")
 
 @app.route("/add/<id_num>")
-def check(id_num):
+def add(id_num):
     print(id_num)
     return render_template("base.html")
 
 @app.route("/remove/<id_num>")
-def check(id_num):
+def remove(id_num):
     print(id_num)
     return render_template("base.html")
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     # Initialize the database connection
     database.init(config)
-    database.query_users()
+    #database.query_users()
 
     app.debug = True
     app.run(host="0.0.0.0")
