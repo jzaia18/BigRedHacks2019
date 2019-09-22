@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+Luminosity
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href= {{ url_for('static', filename = "css/luminosity.css" ) }}>
+{% endblock %}
+
+{% block body %}
+<h1>Luminosity Sensor</h1>
+<br />
+<p id="currlum">The current light level is: <span id="lum"> </span></p>
+
+<div id="progressBar">
+  <div id="lumBar"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+  setInterval(function(){ $.ajax({
+    type: "GET",
+    dataType: "json",
+    data: 'N/A',
+    url: "http://localhost:5000/get_luminosity",
+    success: function(data){
+      document.getElementById("lum").innerText = data.temp;
+      document.getElementById("lumBar").style.width = data.temp/.85 + "%";
+    }
+  })}, 500);
+</script>
+{% endblock %}

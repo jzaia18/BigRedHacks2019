@@ -87,14 +87,27 @@ def add_temperature():
     temperature = database.Temperature(temp_value=temperature, timestamp=timestamp, user=user)
 
 
-@app.route("/airquality")
+@app.route("/luminosity")
 def airquality():
     """
     Handles displaying the air quality for a specific user. Takes in id of the user and
-    returns the airquality data displayed in HTML
+    returns the luminosity data displayed in HTML
     """
-    return render_template("airquality.html")
+    return render_template("luminosity.html")
 
+@app.route("/get_luminosity")
+def get_lum():
+    """
+    Handles displaying the temperature data for a specific user. Takes in id of the user
+    and returns the temperature data displayed in HTML
+    """
+    f = open("info_pipe", 'r')
+    luminosity = f.read()
+    luminosity = luminosity.split(',')[0]
+    f.close()
+    s = {'temp': luminosity}
+    res = json.dumps(s)
+    return res
 
 @app.route("/lock/create")
 def lock_create():
