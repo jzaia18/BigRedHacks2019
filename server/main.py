@@ -38,18 +38,31 @@ def login():
 
 @app.route("/login_attempt", methods=['POST'])
 def login_attempt():
+    """
+    Called through the login form. The call pulls out the email from the form as well as
+    the password. 
+
+    A list of admins accounts that have the given user name are collected. If there is no
+    admin in the list, then the user is redirected back to login.
+
+    If the password does not match, the user is again redirected back to the login page
+    """
+    # Pull the email and password from the form
     user_name = request.form['email'].lower()
-    print(user_name)
     password = request.form['password']
+
+    # Get the all admins from the database that has the same user name
     admins = database.AdminAccount.objects.all()
     admins = list(filter(lambda admin: admin.user_name.lower() == user_name, admins))
-    # Invalid username
+
+    # Invalid username, no admins with the given username
     if len(admins) == 0:
         return redirect('/login')
     admin = admins[0]
+    # Invalid password
     if database.verify_password(admin, password) is not True:
-        print('there')
         return redirect('/login')
+    # Valid username and password
     return redirect('/usermod')
 
 
@@ -134,6 +147,12 @@ def lock_create():
     Creates a new smart lock that has a description associated with it. The description
     is a human-readable short detail of what the lock is for. By default the lock is
     saved with no access granted to any user.
+
+    The description is the only value that needs to be provided and is provided as a get
+    parameters. A new lock is created and saved into the database.
+
+    You can go into mlab to access the database directly to get the ID of the lock, an
+    example lock id is in the slack group.
     """
     description = request.args.get('description')
     new_lock = database.Lock(description=description)
@@ -164,14 +183,22 @@ def query_lock(id_num):
 def unlock(id_num):
     """
     Handles unlocking a specific lock. A user that is a member of the accepted list of
-    users for the lock can successfully unlock the door
+    users for the lock can successfully unlock the door.
+
+    The id num at the end of the url is the unique if of the lock. This can be retrieved
+    directly from mlab and an example id is in the slack channel.
+
+    Additionally the rfid of the user is passed into the request as a get parameter with
+    the name 'rfid'.
     """
     user_rfid = request.args.get('rfid')
 
     lock = database.Lock.objects.get({'_id': ObjectId(id_num)})
     user = database.User.objects.get({'rfid': user_rfid})
+    # The user is in the list of accepted users for the lock
     if user in lock.accepted_users:
         print('PLACE HOLDER FOR UNLOCKING LOCK')
+    # The users is not allowed to unlock the lock
     else:
         print('PLACE HOLDER FOR FAILURE TO UNLOCK LOCK')
     return Response(status=200)
@@ -181,7 +208,13 @@ def unlock(id_num):
 def add_user_lock(id_num):
     """
     Add a given user to the list of accepted users for a lock. Passed in as a get
-    parameter is the ID of the user to ad
+    parameter is the ID of the user to add to the given lock.
+
+    The id num is the unique id for the lock which can be retrieved from mlab or from
+    the example in slack.
+
+    Additionally the rfid of the user must be passed in as a get parameter with the name
+    'rfid'
     """
     # Get the rfid and the user specified
     rfid = request.args.get('rfid')
@@ -198,6 +231,12 @@ def add_user_lock(id_num):
 def remove_user_lock(id_num):
     """
     Removes a users for the accepted list of users that can unlock a specific lock.
+
+    The id num is the number of the lock which can be retrieved from mlab or from the
+    example in slack.
+
+    Additionally the rfid of the user must be passed in as a get parameter with the
+    name rfid
     """
     # Get the rfid and the user specified
     rfid = request.args.get('rfid')
@@ -216,6 +255,10 @@ def create_user():
     """
     Handles creating a user with an rfid and a name associated with it. The rfid is the
     id of the chip of the user and the name of the user is included.
+
+    Creation of a user is done via a get request that contains the unique rfid, first,
+    and last names of the user. The rfid needs to match the rfid of the chip that would
+    represent the user.
 
     rfid (str): A string representation of the rfid
     name (str): The name of the user
