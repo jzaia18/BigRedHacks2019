@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sensors
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href= {{ url_for('static', filename = "css/sensors.css" ) }}>
+{% endblock %}
+
+{% block body %}
+<h1>Temperature Sensor</h1>
+<p id="currtemp">The current temperature is: <span id="temp"> </span></p>
+<div id="progressBarTemp">
+  <div id="tempBar"></div>
+</div>
+
+<br />
+
+<h1>Luminosity Sensor</h1>
+<p id="currlum">The current light level is: <span id="lum"> </span></p>
+<div id="progressBarLum">
+  <div id="lumBar"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+  setInterval(function(){ $.ajax({
+    type: "GET",
+    dataType: "json",
+    data: 'N/A',
+    url: "http://localhost:5000/get_sensor_data",
+    success: function(data){
+      document.getElementById("temp").innerText = data.temp;
+      document.getElementById("tempBar").style.width = data.temp/1.2 + "%";
+
+      document.getElementById("lum").innerText = data.lum;
+      document.getElementById("lumBar").style.width = data.lum/.85 + "%";
+    }
+  })}, 500);
+</script>
+{% endblock %}

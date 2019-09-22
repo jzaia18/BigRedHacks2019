@@ -76,6 +76,25 @@ def get_temp():
     res = json.dumps(s)
     return res
 
+@app.route("/get_sensor_data")
+def get_sensor():
+    """
+    Handles displaying the temperature data for a specific user. Takes in id of the user
+    and returns the temperature data displayed in HTML
+    """
+    f = open("info_pipe", 'r')
+    data = f.read()
+    print(data)
+    luminosity, temperature = data.split(',')
+    f.close()
+    s = {'temp': temperature, 'lum': luminosity}
+    res = json.dumps(s)
+    return res
+
+@app.route("/sensors")
+def sensors():
+    return render_template("sensors.html")
+
 @app.route("/add_temperature")
 def add_temperature():
     """
