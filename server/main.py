@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response, redirect
+from flask import Flask, render_template, request, Response, redirect, url_for
 from functools import wraps
 import os, json
 from configparser import ConfigParser
@@ -23,7 +23,7 @@ def require_login(f):
 
 @app.route("/")
 def root():
-    return render_template("base.html")
+    return redirect(url_for(("about")))
 
 
 @app.route("/about")

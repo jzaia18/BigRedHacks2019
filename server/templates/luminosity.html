@@ -24,7 +24,7 @@ Luminosity
     type: "GET",
     dataType: "json",
     data: 'N/A',
-    url: "http://localhost:5000/get_luminosity",
+    url: "http://10.128.5.24:5000/get_luminosity",
     success: function(data){
       document.getElementById("lum").innerText = data.temp;
       document.getElementById("lumBar").style.width = data.temp/.85 + "%";
