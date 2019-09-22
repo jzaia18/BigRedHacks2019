@@ -4,11 +4,18 @@
 Temperature
 {% endblock %}
 
-{% block body %}
-Temperature
-<br />
-The temperature is: <span id="temp"> </span>
+{% block css %}
+<link rel="stylesheet" type="text/css" href= {{ url_for('static', filename = "css/temperature.css" ) }}>
+{% endblock %}
 
+{% block body %}
+<h1>Temperature Sensor</h1>
+<br />
+<p id="currtemp">The current temperature is: <span id="temp"> </span></p>
+
+<div id="progressBar">
+  <div id="tempBar"></div>
+</div>
 {% endblock %}
 
 {% block js %}
@@ -19,7 +26,8 @@ The temperature is: <span id="temp"> </span>
     data: 'N/A',
     url: "http://localhost:5000/get_temperature",
     success: function(data){
-      document.getElementById("temp").innerText = data.temp;
+      document.getElementById("temp").innerText = data.temp + "°F";
+      document.getElementById("tempBar").style.width = data.temp/1.2 + "%";
     }
   })}, 500);
 </script>

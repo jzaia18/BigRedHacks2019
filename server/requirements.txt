@@ -7,6 +7,7 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 mongoengine==0.18.2
 pep8==1.7.1
+pymodm==0.4.1
 pymongo==3.9.0
 six==1.12.0
 Werkzeug==0.16.0
