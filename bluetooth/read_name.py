@@ -7,6 +7,7 @@
 from __future__ import print_function
 
 import os, sys
+from random import randint
 from bluetooth.ble import GATTRequester
 
 
@@ -41,16 +42,19 @@ class Reader(object):
             #"0000181c-0000-1000-8000-00805f9b34fbC")
             #"00002a00-0000-1000-8000-00805f9b34fb")
             #print(data)
-            data = ",".join([str(ord(datum)) for datum in data[0]])
-            print(data)
-
+            data = [ord(datum) for datum in data[0]]
             try:
                 os.mkfifo(path)
             except:
                 #print("pipe already exists")
                 pass
             fifo = open(path, 'w')
-            fifo.write(str(data))
+
+            #copy & add randomness to data to show how aggregation
+            data1 = ",".join([str(randint(i-3, i+3)) for i in data[:]])
+            data2 = ",".join([str(randint(i-3, i+3)) for i in data[:]])
+            data3 = ",".join([str(randint(i-3, i+3)) for i in data[:]])
+            fifo.write(data1+"\n"+data2+"\n"+data3)
             fifo.close()
         '''
         try:

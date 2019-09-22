@@ -97,10 +97,10 @@ def get_sensor():
     """
     f = open("info_pipe", 'r')
     data = f.read()
-    print(data)
-    luminosity, temperature = data.split(',')
+    data = data.split()
+    information = [datum.split(',') for datum in data]
     f.close()
-    s = {'temp': temperature, 'lum': luminosity}
+    s = {'sensorInfo': information}
     res = json.dumps(s)
     return res
 
