@@ -32,21 +32,22 @@ Sensors
     data: 'N/A',
     url: "http://10.128.5.24:5000/get_sensor_data",
     success: function(data){
-      console.log(data);
-      console.log(data.sensorInfo);
       var avglum = avgtemp = 0;
       for (var i = 0; i < data.sensorInfo.length; i++) {
-        avglum+=parseInt(data.sensorInfo[i][0]);
-        avgtemp+=parseInt(data.sensorInfo[i][0]);
+        avglum+=parseFloat(data.sensorInfo[i][0]);
+        avgtemp+=parseFloat(data.sensorInfo[i][1]);
       }
-      avglum/=3;
-      avgtemp/=3;
+      avglum /= 3;
+      avgtemp /= 3;
+
+      avglum = Math.round(avglum);
+      avgtemp = Math.round(avgtemp);
 
       document.getElementById("temp").innerText = avgtemp;
       document.getElementById("tempBar").style.width = avgtemp/1.2 + "%";
 
       document.getElementById("lum").innerText = avglum;
-      document.getElementById("lumBar").style.width = avglum/.85 + "%";
+      document.getElementById("lumBar").style.width = avglum/.9 + "%";
     }
   })}, 500);
 </script>

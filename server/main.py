@@ -40,7 +40,7 @@ def login():
 def login_attempt():
     """
     Called through the login form. The call pulls out the email from the form as well as
-    the password. 
+    the password.
 
     A list of admins accounts that have the given user name are collected. If there is no
     admin in the list, then the user is redirected back to login.

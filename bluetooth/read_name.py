@@ -7,7 +7,7 @@
 from __future__ import print_function
 
 import os, sys
-from random import randint
+import random
 from bluetooth.ble import GATTRequester
 
 
@@ -51,9 +51,10 @@ class Reader(object):
             fifo = open(path, 'w')
 
             #copy & add randomness to data to show how aggregation
-            data1 = ",".join([str(randint(i-3, i+3)) for i in data[:]])
-            data2 = ",".join([str(randint(i-3, i+3)) for i in data[:]])
-            data3 = ",".join([str(randint(i-3, i+3)) for i in data[:]])
+            data1 = ",".join([str(random.uniform(i-1.5, i+1.5)) for i in data[:]])
+            data2 = ",".join([str(random.uniform(i-1.5, i+1.5)) for i in data[:]])
+            data3 = ",".join([str(random.uniform(i-1.5, i+1.5)) for i in data[:]])
+            print(str(data1))
             fifo.write(data1+"\n"+data2+"\n"+data3)
             fifo.close()
         '''
