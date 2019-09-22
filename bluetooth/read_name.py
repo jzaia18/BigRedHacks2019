@@ -27,6 +27,12 @@ class Reader(object):
         #for each in self.requester.discover_characteristics():
         #    print(each)
         #    print(self.requester.read_by_handle(each['handle']))
+        path = "../server/info_pipe"
+        if os.path.exists(path):
+            os.unlink(path)
+            #os.remove(path)
+            print("Removed old pipe")
+
         print("Begin reading data: ")
         while(True):
             data = self.requester.read_by_uuid(
@@ -38,7 +44,6 @@ class Reader(object):
             data = ",".join([str(ord(datum)) for datum in data[0]])
             print(data)
 
-            path = "../server/info_pipe"
             try:
                 os.mkfifo(path)
             except:

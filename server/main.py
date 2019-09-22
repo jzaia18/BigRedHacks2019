@@ -69,7 +69,8 @@ def get_temp():
     """
     f = open("info_pipe", 'r')
     temperature = f.read()
-    temperature = temperature.split(',')[1][:-1]
+    print(temperature+"F")
+    temperature = temperature.split(',')[1]
     f.close()
     s = {'temp': temperature}
     res = json.dumps(s)
